@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'constants/app_colors.dart';
-import 'repositories/auth_repository.dart';
-import 'blocs/auth/auth_bloc.dart';
-import 'pages/register_page.dart';
-import 'pages/main_page.dart';
+import 'package:lab_7/constants/app_colors.dart';
+import 'home.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
   runApp(
     EasyLocalization(
-      supportedLocales: const [Locale('en'), Locale('ko')],
+      supportedLocales: const [
+        Locale('en'),
+        Locale('ko'),
+      ],
       path: 'assets/translations',
       fallbackLocale: const Locale('en'),
       child: const MyApp(),
@@ -26,26 +25,18 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RepositoryProvider(
-      create: (_) => AuthRepository(),
-      child: BlocProvider(
-        create: (ctx) => AuthBloc(ctx.read<AuthRepository>()),
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Lab9 Registration (Bloc + Localization)',
-          localizationsDelegates: context.localizationDelegates,
-          supportedLocales: context.supportedLocales,
-          locale: context.locale,
-          home: const RegisterPage(),
-          routes: {
-            '/main': (ctx) => const MainPage(),
-          },
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
-            useMaterial3: true,
-          ),
-        ),
+    return MaterialApp(
+      title: 'Lab 9 Registration',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: AppColors.primary,
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
+        useMaterial3: true,
       ),
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+      home: const HomePage(),
     );
   }
 }
