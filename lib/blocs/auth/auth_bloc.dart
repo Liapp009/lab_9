@@ -1,29 +1,18 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'auth_event.dart';
 import 'auth_state.dart';
-import '../../repositories/auth_repository.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final AuthRepository authRepository;
-  AuthBloc(this.authRepository) : super(AuthInitial()) {
-    on<RegisterEvent>(_onRegister);
-  }
+  AuthBloc() : super(AuthInitial()) {
+    on<RegisterEvent>((event, emit) async {
+      emit(AuthLoading());
+      await Future.delayed(const Duration(seconds: 1));
 
-  Future<void> _onRegister(RegisterEvent event, Emitter<AuthState> emit) async {
-    emit(AuthLoading());
-    try {
-      final success = await authRepository.register(
-        email: event.email,
-        password: event.password,
-      );
-
-      if (success) {
+      if (event.email.isNotEmpty && event.password.isNotEmpty) {
         emit(AuthSuccess());
       } else {
-        emit(AuthFailure("Registration failed"));
+        emit(const AuthFailure("Invalid input"));
       }
-    } catch (e) {
-      emit(AuthFailure("Error: ${e.toString()}"));
-    }
+    });
   }
 }
