@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lab_7/auth/bloc/auth_bloc.dart';
+import 'package:lab_7/auth/bloc/auth_event.dart';
+import 'package:lab_7/auth/bloc/auth_state.dart';
 import 'package:lab_7/constants/app_colors.dart';
-import 'package:lab_7/repositories/pages/bottom_bar.dart';
-import '../../blocs/auth/auth_bloc.dart';
-import '../../blocs/auth/auth_event.dart';
-import '../../blocs/auth/auth_state.dart';
+import 'package:lab_7/bottom_bar_page.dart/bottom_bar.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class AuthPage extends StatefulWidget {
+  const AuthPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<AuthPage> createState() => _AuthPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AuthPageState extends State<AuthPage> {
   final TextEditingController _emailCtrl = TextEditingController();
   final TextEditingController _passwordCtrl = TextEditingController();
 

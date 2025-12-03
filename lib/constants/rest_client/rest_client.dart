@@ -1,6 +1,6 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
-import '../profile.dart';
+import '../../models/profile.dart';
 
 part 'rest_client.g.dart';
 

@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
 
-class MobileApiDio {
-  static late MobileApiDio _instance;
+class RestClientDio {
+  static late RestClientDio _instance;
   late Dio _http;
 
   static get instance {
-    _instance = MobileApiDio._internal();
+    _instance = RestClientDio._internal();
     return _instance;
   }
 
-  MobileApiDio._internal() {
+  RestClientDio._internal() {
     BaseOptions options = BaseOptions(
       baseUrl: 'https://jsonplaceholder.typicode.com/',
       connectTimeout: 5000,
@@ -21,7 +21,7 @@ class MobileApiDio {
     _http = Dio(options);
   }
 
-  factory MobileApiDio() => MobileApiDio._internal();
+  factory RestClientDio() => RestClientDio._internal();
 
   get client => _http;
 
