@@ -1,16 +1,12 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class PostRepository {
-  final String _url = "https://jsonplaceholder.typicode.com/posts/1";
+  final Dio _dio = Dio();
 
   Future<Map<String, dynamic>> fetchPost() async {
-    final response = await http.get(Uri.parse(_url));
-
-    if (response.statusCode == 200) {
-      return jsonDecode(response.body) as Map<String, dynamic>;
-    } else {
-      throw Exception("Failed to load post");
-    }
+    final response = await _dio.get(
+      'https://jsonplaceholder.typicode.com/posts/1',
+    );
+    return response.data;
   }
 }
